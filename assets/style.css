@@ -207,3 +207,5 @@ details p { padding: 0 40px 24px 0; color: var(--texte-doux); }
 
 [hidden] { display: none !important; }
 .lieu-actuel { font-weight: 500; color: var(--accent); }
+.forfaits small { font-size: 13px; }
+.mutuelle { margin-top: 10px; font-size: 13px; font-style: italic; letter-spacing: .01em; color: #76646C; }
