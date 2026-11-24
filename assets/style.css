@@ -110,6 +110,13 @@ section { padding-bottom: 104px; }
 .seance__details { font-size: 15px; color: var(--texte-doux); }
 .seance__prix { font-family: var(--serif); font-size: 32px; line-height: 1; }
 
+.seance__des { font-family: var(--sans); font-size: 14px; color: var(--texte-doux); margin-right: 4px; }
+.forfaits { margin: 8px 0 0; display: flex; flex-direction: column; max-width: 360px; }
+.forfaits div { display: flex; justify-content: space-between; gap: 16px; padding: 6px 0; border-bottom: 1px dashed var(--ligne); }
+.forfaits div:last-child { border-bottom: 0; }
+.forfaits dt { color: var(--texte-doux); }
+.forfaits dd { margin: 0; font-weight: 600; }
+
 /* Bloc visio */
 .visio {
   padding: 64px 48px; margin-bottom: 104px; border-radius: 4px;
@@ -190,6 +197,7 @@ details p { padding: 0 40px 24px 0; color: var(--texte-doux); }
   section { padding-bottom: 72px; }
   .visio { padding: 40px 24px; margin-bottom: 72px; }
   .photo--portrait { height: 340px; }
+  .seance__prix { display: none; }
 }
 
 @media (prefers-reduced-motion: reduce) {
