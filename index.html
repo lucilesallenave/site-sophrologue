@@ -51,13 +51,13 @@
 <main id="contenu" class="conteneur">
 
   <section class="accueil" aria-labelledby="titre-accueil">
-    <span class="surtitre">Sophrologue · En visio &amp; à domicile (77)</span>
+    <span class="surtitre">Sophrologue · En visio<span data-domicile> &amp; à domicile · <span data-lieu>Seine-et-Marne (77)</span></span></span>
     <h1 id="titre-accueil">Retrouver du calme, <span class="italique accent">à votre rythme</span>, là où vous êtes.</h1>
     <div class="accueil__bas">
-      <p class="doux">Séances de sophrologie en visio, partout en France. Et à domicile en Seine-et-Marne&nbsp;: c'est moi qui me déplace.</p>
+      <p class="doux">Séances de sophrologie en visio, partout en France.<span data-domicile> Et à domicile, c'est moi qui me déplace&nbsp;: en ce moment, <span data-lieu>Seine-et-Marne (77)</span>.</span></p>
       <div class="boutons">
         <a class="bouton bouton--plein" href="#reserver">Réserver en visio</a>
-        <a class="bouton bouton--contour" href="#reserver">À domicile (77)</a>
+        <a class="bouton bouton--contour" href="#reserver" data-domicile>Séance à domicile</a>
       </div>
     </div>
   </section>
@@ -81,9 +81,9 @@
         </div>
         <p class="seance__prix"><span class="seance__des">dès</span> 50 €</p>
       </article>
-      <article class="seance">
+      <article class="seance" data-domicile>
         <div class="seance__texte">
-          <h3>À domicile, en Seine-et-Marne</h3>
+          <h3>À domicile · <span class="lieu-actuel">en ce moment&nbsp;: <span data-lieu>Seine-et-Marne (77)</span></span></h3>
           <p class="doux">Je viens jusqu'à vous pour une séance dans votre cadre de vie, là où vous vous sentez bien.</p>
           <p class="seance__details">1 h · Zone&nbsp;: [villes ou rayon] · [Frais de déplacement]</p>
           <dl class="forfaits">
@@ -152,9 +152,9 @@
         <summary>De quoi ai-je besoin pour une séance en visio&nbsp;?</summary>
         <p>D'un ordinateur, d'une tablette ou d'un téléphone avec une connexion internet, d'un endroit calme où vous ne serez pas dérangé, et idéalement d'écouteurs. Prévoyez une tenue confortable et une chaise ou un endroit où vous allonger.</p>
       </details>
-      <details>
-        <summary>Où vous déplacez-vous en Seine-et-Marne&nbsp;?</summary>
-        <p>[Zone d'intervention : villes ou rayon autour de…]. Des frais de déplacement peuvent s'appliquer selon la distance&nbsp;: [conditions].</p>
+      <details data-domicile>
+        <summary>Où vous déplacez-vous en ce moment&nbsp;?</summary>
+        <p>Zone actuelle&nbsp;: <span data-lieu>Seine-et-Marne (77)</span>. [Zone d'intervention : villes ou rayon autour de…]. Des frais de déplacement peuvent s'appliquer selon la distance&nbsp;: [conditions].</p>
       </details>
       <details>
         <summary>Les séances sont-elles remboursées&nbsp;?</summary>
@@ -176,7 +176,7 @@
     <h2 id="titre-reserver">Envie de faire une <span class="italique accent">pause</span>&nbsp;?</h2>
     <div class="boutons">
       <a class="bouton bouton--plein" href="#reserver">Réserver en visio</a>
-      <a class="bouton bouton--contour" href="#reserver">Séance à domicile (77)</a>
+      <a class="bouton bouton--contour" href="#reserver" data-domicile>Séance à domicile</a>
     </div>
   </section>
 
@@ -204,6 +204,20 @@
     });
     nav.querySelectorAll('a').forEach(function (a) { a.addEventListener('click', fermer); });
     document.getElementById('annee').textContent = new Date().getFullYear();
+  })();
+</script>
+<script>
+  /* Lieu d'activité : modifiable par Lucile dans son Google Sheet « Où suis-je en ce moment » */
+  (function () {
+    var URL = 'https://docs.google.com/spreadsheets/d/1NQDHjcdmUVDTtw9oaEPwlKMmxpvx9TxvbeEdoQunwtU/gviz/tq?tqx=out:csv&sheet=Lieu&range=B1:B2&headers=0';
+    function cellules(csv) {
+      return csv.trim().split(/\r?\n/).map(function (l) { return l.replace(/^"|"$/g, '').replace(/""/g, '"').trim(); });
+    }
+    fetch(URL, { cache: 'no-store' }).then(function (r) { return r.ok ? r.text() : Promise.reject(); }).then(function (csv) {
+      var v = cellules(csv), lieu = v[0], domicile = (v[1] || '').toUpperCase();
+      if (lieu) document.querySelectorAll('[data-lieu]').forEach(function (el) { el.textContent = lieu; });
+      if (domicile === 'NON') document.querySelectorAll('[data-domicile]').forEach(function (el) { el.hidden = true; });
+    }).catch(function () { /* en cas de souci, le texte par défaut reste affiché */ });
   })();
 </script>
 </body>

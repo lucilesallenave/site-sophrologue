@@ -204,3 +204,6 @@ details p { padding: 0 40px 24px 0; color: var(--texte-doux); }
   html { scroll-behavior: auto; }
   * { transition: none !important; }
 }
+
+[hidden] { display: none !important; }
+.lieu-actuel { font-weight: 500; color: var(--accent); }
